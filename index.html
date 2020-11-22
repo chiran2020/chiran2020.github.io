@@ -58,7 +58,7 @@
     	request.onload = function() {
 
         	var data = JSON.parse(request.responseText);
-			citstudents = data.filter(getName)    
+			cit-students = data.filter(getName)    
 		
 			function getMajor(name) {
             	return name.major == selected_major;
@@ -68,7 +68,7 @@
               	var templateText = document.getElementById('tableTemplate').innerHTML;
              	var compiledTemplateText = Handlebars.compile(templateText);    
               	
-              	compiledHtml = compiledTemplateText({ rows: citstudents })       
+              	compiledHtml = compiledTemplateText({ rows: cit-students })       
               	document.getElementById('majorTable').innerHTML = compiledHtml; 	
        	 	}
         	else {
