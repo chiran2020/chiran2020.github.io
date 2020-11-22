@@ -1,1 +1,52 @@
 
+ <!DOCTYPE html>
+ <html>
+ <head>
+     <title></title>
+ </head>
+ <body>
+
+<script type="text/javascript">
+
+    function showTable() {
+
+    var div1 = document.getElementById("display");  
+     var divData = "<h3> The Table.</h3>";
+     divData += "<table border= '5' cellspacing='2' cellpadding='2'>";
+     divData = divData + "<tr><th> Temperature Celsius </th> <th> Temperature Fahrenheit </th> </tr>" ;    
+
+     var degc = 0;
+        for(degc = 0; degc <= 100; degc = degc + 10) { 
+      degf = (9/5) * degc + 32     
+    divData += "<tr><td>" + degc + "</td><td>" + degf + "</td></tr>";   
+     }
+     
+     divData += "</table>";
+
+     div1.innerHTML = divData;   
+  }
+  
+  </script> 
+  
+
+     <p>Click the button</p>
+
+     <form> 
+         <p> <input type="button" value="Click for table" onClick="showTable()" >  </p>
+     </form>
+
+     <div id="display">Table will go here.</div>
+
+ <script type="text/javascript">
+     
+var x = ["red", "orange", "yellow", "green", "blue"]; 
+ m = x.splice(2, 2);
+ alert(m);
+
+ </script>
+
+
+
+ 
+ </body>
+ </html>
