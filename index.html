@@ -6,7 +6,7 @@
       <title>menu items</title>
 	  
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
-      <!-- bootstrap on github   need to use https for these links -->
+     
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         
@@ -31,11 +31,11 @@
       
             
      
-     </div>   <!-- end class='container'   -->
+     </div>    
   </body>
 
 
-  <!-- Handlebars template -->
+   
 <script type="text/x-handlebars-template" id="tableTemplate">
 
    <table class="table table-striped">
@@ -48,17 +48,17 @@
    </table>
 </script>
   
-  <!-- application ajax code -->
+   
 <script>
 
 	function getData(selected_major) {
 		var request = new XMLHttpRequest();
-    	request.open('GET', 'cit5students.json');     // open the request
+    	request.open('GET', 'cit5students.json');      
 
     	request.onload = function() {
 
         	var data = JSON.parse(request.responseText);
-			cit5students = data.filter(getName)   // filter data for selected meal
+			citstudents = data.filter(getName)    
 		
 			function getMajor(name) {
             	return name.major == selected_major;
@@ -66,9 +66,9 @@
 
         	if (request.status == 200) {
               	var templateText = document.getElementById('tableTemplate').innerHTML;
-             	var compiledTemplateText = Handlebars.compile(templateText);   // get and compile template code
+             	var compiledTemplateText = Handlebars.compile(templateText);    
               	
-              	compiledHtml = compiledTemplateText({ rows: cit5students })      // apply data to template
+              	compiledHtml = compiledTemplateText({ rows: citstudents })       
               	document.getElementById('majorTable').innerHTML = compiledHtml; 	
        	 	}
         	else {
