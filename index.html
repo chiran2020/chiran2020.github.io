@@ -6,7 +6,7 @@
       <title>Students</title>
 	  
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
-     
+      <!-- bootstrap on github   need to use https for these links -->
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         
@@ -25,8 +25,8 @@
             </div>
       
   
-           <h3> Filter by Major</h3>
-                <div id="majorTable"></div>
+           <h4> Filter by Major</h4>
+            <div id="majorTable"></div>
                 
       
             
@@ -39,7 +39,7 @@
 <script type="text/x-handlebars-template" id="tableTemplate">
 
    <table class="table table-striped">
-       <tr><th>Name</th><th>Major</th><th>Midterm</th><th>Final</th></tr>
+       <tr><th>Student</th><th>Major</th><th>Midterm</th><th>Final</th></tr>
            {{#each rows}}
                <tr>
                   <td>{{name}}</td><td>{{major}}</td><td>{{midterm}}</td><td>{{final}}</td>
@@ -53,12 +53,12 @@
 
 	function getData(selected_major) {
 		var request = new XMLHttpRequest();
-    	request.open('GET', 'cit5students.json');      
+    	request.open('GET', 'cit5students.json');     
 
     	request.onload = function() {
 
         	var data = JSON.parse(request.responseText);
-			cit-students = data.filter(getName)    
+			major_student = data.filter(getMajor)    
 		
 			function getMajor(name) {
             	return name.major == selected_major;
@@ -66,9 +66,9 @@
 
         	if (request.status == 200) {
               	var templateText = document.getElementById('tableTemplate').innerHTML;
-             	var compiledTemplateText = Handlebars.compile(templateText);    
+             	var compiledTemplateText = Handlebars.compile(templateText);   // get and compile template code
               	
-              	compiledHtml = compiledTemplateText({ rows: cit-students })       
+              	compiledHtml = compiledTemplateText({ rows: major_student })      // apply data to template
               	document.getElementById('majorTable').innerHTML = compiledHtml; 	
        	 	}
         	else {
