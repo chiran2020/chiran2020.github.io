@@ -1,52 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>menu items</title>
+	  
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+      <!-- bootstrap on github   need to use https for these links -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
+      <style> .btn{margin: 5px} </style>
+  </head>
 
- <!DOCTYPE html>
- <html>
- <head>
-     <title></title>
- </head>
- <body>
-
-<script type="text/javascript">
-
-    function showTable() {
-
-    var div1 = document.getElementById("display");  
-     var divData = "<h3> The Table.</h3>";
-     divData += "<table border= '5' cellspacing='2' cellpadding='2'>";
-     divData = divData + "<tr><th> Temperature Celsius </th> <th> Temperature Fahrenheit </th> </tr>" ;    
-
-     var degc = 0;
-        for(degc = 0; degc <= 100; degc = degc + 10) { 
-      degf = (9/5) * degc + 32     
-    divData += "<tr><td>" + degc + "</td><td>" + degf + "</td></tr>";   
-     }
+  <body>
+  
+     <div class="container">
+            <h2>Select a Menu</h2>
+      
+            <div style='padding: 5px;'>    
+               <button type='button' class="btn btn-primary" onClick="getData('breakfast')">Breakfast</button> 
+               <button type='button' class="btn btn-primary" onClick="getData('lunch')">Lunch</button> 
+               <button type='button' class="btn btn-primary" onClick="getData('dinner')">Dinner</button> 
+            </div>
+      
+  
+           <h3>We filter our dataset by meal</h3>
+                <div id="menuTable"></div>
+                
+      
+           <p>Menu Data originally provided by  <a href='https://manual.cs50.net/api/food/'>manual.cs50.net/api/food/</a></p>
+		   <p>Items are from HUDS, which is the Harvard University Dining Services. The above link is very old, and no longer leads to information on the food API, and I can find no updated information on attribution.</p>
+           <p>CS 50 is a popular intro to computer science course offered by Harvard University.</p>       
      
-     divData += "</table>";
+     </div>   <!-- end class='container'   -->
+  </body>
 
-     div1.innerHTML = divData;   
+
+  <!-- Handlebars template -->
+<script type="text/x-handlebars-template" id="tableTemplate">
+
+   <table class="table table-striped">
+       <tr><th>Item</th><th>Meal</th><th>Category</th><th>Portion</th></tr>
+           {{#each rows}}
+               <tr>
+                  <td>{{name}}</td><td>{{meal}}</td><td>{{category}}</td><td>{{portion}}</td>
+               </tr>
+           {{/each}}
+   </table>
+</script>
+  
+  <!-- application ajax code -->
+<script>
+
+	function getData(selected_meal) {
+		var request = new XMLHttpRequest();
+    	request.open('GET', 'menu_items.json');     // open the request
+
+    	request.onload = function() {
+
+        	var data = JSON.parse(request.responseText);
+			meal_items = data.filter(getMeal)   // filter data for selected meal
+		
+			function getMeal(item) {
+            	return item.meal == selected_meal;
+        	}
+
+        	if (request.status == 200) {
+              	var templateText = document.getElementById('tableTemplate').innerHTML;
+             	var compiledTemplateText = Handlebars.compile(templateText);   // get and compile template code
+              	
+              	compiledHtml = compiledTemplateText({ rows: meal_items })      // apply data to template
+              	document.getElementById('menuTable').innerHTML = compiledHtml; 	
+       	 	}
+        	else {
+            	document.querySelector('#menuTable').innerHTML = "There was an error, or menu items not found";
+        	}
+		}
+
+    request.send(null);
   }
   
-  </script> 
-  
-
-     <p>Click the button</p>
-
-     <form> 
-         <p> <input type="button" value="Click for table" onClick="showTable()" >  </p>
-     </form>
-
-     <div id="display">Table will go here.</div>
-
- <script type="text/javascript">
-     
-var x = ["red", "orange", "yellow", "green", "blue"]; 
- m = x.splice(2, 2);
- alert(m);
-
- </script>
-
-
-
- 
- </body>
- </html>
+</script>
+</html>
