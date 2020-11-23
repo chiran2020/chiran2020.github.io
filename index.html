@@ -21,22 +21,12 @@
                <button type='button' class="btn btn-primary" onClick="getData('BUS')">BUS Major</button> 
                 
             </div>
-      
-  
-           <h4> Filter by Major</h4>
-            <div id="majorTable"></div>
-                
-      
-            
-     
-     </div>    
+      <h4> Filter by Major</h4>
+      <div id="majorTable"></div>
+           </div>    
   </body>
-
-
-   
 <script type="text/x-handlebars-template" id="tableTemplate">
-
-   <table class="table table-striped">
+<table class="table table-striped">
        <tr><th>Student</th><th>Major</th><th>Midterm</th><th>Final</th></tr>
            {{#each rows}}
                <tr>
