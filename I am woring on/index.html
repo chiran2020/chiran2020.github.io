@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head><title>Students</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script> 
+</head>
+
+<body ng-app = "studentApp">
+
+<div class="container">
+<nav class="navbar navbar-inverse">
+
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Website</a>
+    </div>
+    <div>
+       <ul class="nav navbar-nav">
+           <li class="active"><a href="index.html">Welcome</a></li>
+           <li><a href="all_cars.html">All Student Data</a></li>
+       </ul>
+    </div>
+
+</nav>     
+
+<div ng-controller = "allCtrl">
+
+<h2>All Data</h2>
+          <p><input type='text' ng-model='search_text' > Enter text to Search </p>
+          <table class="table table-bordered table-striped">
+              <tr>
+                  <th>id</th>
+                  <th>first name</th>
+                  <th>last name</th>
+                  <th>credit hrs</th>
+                  <th>gpa</th>
+                  <th>major</th>
+                   
+              </tr>
+              <tr ng-repeat = "student in students | filter:search_text ">
+                  <td>{{students.id}}</td>
+                  <td>{{students.first_name}}</td>
+                  <td>{{students.last_name}}</td>
+                  <td>{{students.credit_hrs}}</td>
+                  <td>{{students.gpa_points}}</td>
+                  <td>{{car.major }}</td>
+                 
+              </tr>
+         </table>
+
+</div>    
+</div>    
+<script>
+var app = angular.module('studentApp', []);
+	  
+		  
+app.controller('allCtrl', function($scope, $http) {
+    
+   $http.get("students.json")           
+     .then(function (response) {
+	    $scope.students = response.data;  
+     });
+
+});
+
+</script>
+</body></html>
