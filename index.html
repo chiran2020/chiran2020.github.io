@@ -56,7 +56,7 @@ var app = angular.module('studentApp', []);
 		  
 app.controller('allCtrl', function($scope, $http) {
     
-   $http.get("Students.json")           
+   $http.get("students.json")           
      .then(function (response) {
 	    $scope.students = response.data;  
      });
